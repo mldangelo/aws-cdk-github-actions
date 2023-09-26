@@ -12,7 +12,10 @@ RUN apk --no-cache add bash curl git jq py3-pip python3 && \
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.5/install.sh | PROFILE=/dev/null bash
 
 RUN . "$NVM_DIR/nvm.sh" && \
-    nvm install $NODE_VERSION && \
+    nvm install $NODE_VERSION
+
+RUN . "$NVM_DIR/nvm.sh" && \
+    nvm use $NODE_VERSION && \
     npm install -g npm@$NPM_VERSION
 
 # Runtime Stage
@@ -33,11 +36,9 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 
 WORKDIR /app
 
-# Copy package files and install dependencies
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy your entrypoint
 COPY entrypoint.sh ./
 
 ENTRYPOINT ["/app/entrypoint.sh"]
