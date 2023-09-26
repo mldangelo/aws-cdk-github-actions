@@ -4,15 +4,15 @@ FROM alpine:3.18
 ARG NODE_VERSION=18
 
 RUN apk --update --no-cache add \
-    nodejs=${NODE_VERSION} \
-	npm \
-	python3 \
-	py3-pip \
-	jq \
-	curl \
 	bash \
-	git \
+	curl \
 	docker \
+	git \
+	jq \
+	npm \
+	py3-pip \
+	python3 \
+	nodejs=${NODE_VERSION} \
 	&& ln -sf /usr/bin/python3 /usr/bin/python
 
 COPY --from=golang:alpine /usr/local/go/ /usr/local/go/
