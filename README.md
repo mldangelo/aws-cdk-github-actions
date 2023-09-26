@@ -1,15 +1,15 @@
 # AWS-CDK GitHub Actions
 
-AWS-CDK GitHub Actions allow you to run `cdk deploy` and `cdk diff` (among other cdk subcommands) on your pull requests to help you review.
+AWS-CDK GitHub Actions enables the execution of various CDK subcommands, such as `cdk deploy` and `cdk diff`, on your pull requests for an improved review experience.
 
-## Supported language
+## Supported Languages
 
 - TypeScript
 - JavaScript
 - Python
 - Golang
 
-## Example usage
+## Example Usage
 
 ```yaml
 on: [push]
@@ -20,7 +20,7 @@ jobs:
     steps:
 
       - name: cdk diff
-        uses: youyo/aws-cdk-github-actions@v2
+        uses: mldangelo/aws-cdk-github-actions@main
         with:
           cdk_subcommand: 'diff'
           actions_comment: true
@@ -30,7 +30,7 @@ jobs:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
 
       - name: cdk deploy
-        uses: youyo/aws-cdk-github-actions@v2
+        uses: mldangelo/aws-cdk-github-actions@main
         with:
           cdk_subcommand: 'deploy'
           cdk_stack: 'stack1'
@@ -42,10 +42,11 @@ jobs:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
 
       - name: cdk synth
-        uses: youyo/aws-cdk-github-actions@v2
+        uses: mldangelo/aws-cdk-github-actions@main
         with:
           cdk_subcommand: 'synth'
           cdk_version: '1.16.2'
+          node_version: '18'
           working_dir: 'src'
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -53,11 +54,11 @@ jobs:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
 ```
 
-### Can I use assume-role?
+### Using Assume-Role
 
-If you use assume-role, we recommend using [awscredswrap](https://github.com/marketplace/actions/aws-assume-role-github-actions).
+For those utilizing assume-role, we recommend [awscredswrap](https://github.com/marketplace/actions/aws-assume-role-github-actions).
 
-See: https://github.com/marketplace/actions/aws-assume-role-github-actions#use-as-github-actions
+See: [aws-assume-role-github-actions documentation](https://github.com/marketplace/actions/aws-assume-role-github-actions#use-as-github-actions)
 
 ```yaml
 on: [push]
@@ -78,7 +79,7 @@ jobs:
           AWS_DEFAULT_REGION: 'ap-northeast-1'
 
       - name: cdk diff
-        uses: youyo/aws-cdk-github-actions@v2
+        uses: mldangelo/aws-cdk-github-actions@main
         with:
           cdk_subcommand: 'diff'
 ```
@@ -86,28 +87,30 @@ jobs:
 ## Inputs
 
 - `cdk_subcommand` **Required** AWS CDK subcommand to execute ('deploy', 'diff', etc.)
-- `cdk_version` AWS CDK version to install. (default: 'latest')
-- `cdk_stack` AWS CDK stack name to execute. (default: '*')
-- `working_dir` AWS CDK working directory. (default: '.')
-- `actions_comment` Whether or not to comment on pull requests. (default: true)
-- `debug_log` Enable debug-log. (default: false)
+- `actions_comment` Decide if you want to comment on pull requests. Default: true
+- `cdk_stack` AWS CDK stack name to execute. Default: '*'
+- `cdk_version` Version of AWS CDK to install. Default: 'latest'
+- `debug_log` Enable debug logging? Default: false
+- `node_version` Version of Node.js to use. Default: '18'
+- `working_dir` AWS CDK working directory. Default: '.'
 
 ## Outputs
 
-- `status_code` Returned status code.
+- `status_code` The status code returned by the CDK command.
 
 ## ENV
 
 - `AWS_ACCESS_KEY_ID` **Required**
 - `AWS_SECRET_ACCESS_KEY` **Required**
-- `GITHUB_TOKEN` Required for `actions_comment=true`
+- `GITHUB_TOKEN` Necessary when `actions_comment=true`
 
-Recommended to get `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` from secrets. The github token is [automatically made available](https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token) as a secret as `GITHUB_TOKEN`. 
+For security, we recommend sourcing `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` from your repository's secrets. GitHub automatically provides a token as a secret named `GITHUB_TOKEN`.
 
 ## License
 
 [MIT](LICENSE)
 
-## Author
+## Authors
 
-[youyo](https://github.com/youyo)
+- Original work by [youyo](https://github.com/youyo)
+- Modifications by [Michael D'Angelo](https://github.com/mldangelo)
