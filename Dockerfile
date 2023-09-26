@@ -2,7 +2,7 @@
 FROM alpine:3.18 as builder
 
 # Set desired Node.js version, NVM directory, desired npm version, and Python version
-ARG NODE_VERSION=18.18
+ARG NODE_VERSION=18.18.0
 ARG NPM_VERSION=9.8.1
 ARG PYTHON_VERSION=3.9.7
 ENV NVM_DIR /usr/local/nvm
