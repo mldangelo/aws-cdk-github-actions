@@ -2,8 +2,8 @@
 FROM alpine:3.18 as builder
 
 # Set desired Node.js version, NVM directory, and desired npm version
-ARG NODE_VERSION=18.0.0
-ARG NPM_VERSION=7.24.0
+ARG NODE_VERSION=18.18
+ARG NPM_VERSION=9.8.1
 ENV NVM_DIR /usr/local/nvm
 
 RUN apk --no-cache add bash curl git jq py3-pip python3 && \
