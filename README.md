@@ -1,6 +1,6 @@
 # AWS-CDK GitHub Actions
 
-AWS-CDK GitHub Actions enables the execution of various CDK subcommands, such as `cdk deploy` and `cdk diff`, on your pull requests for an improved review experience.
+The AWS-CDK GitHub Actions facilitates the execution of various CDK subcommands, such as `cdk deploy` and `cdk diff`, within your pull requests to enhance the review experience.
 
 ## Supported Languages
 
@@ -18,7 +18,6 @@ jobs:
   aws_cdk:
     runs-on: ubuntu-latest
     steps:
-
       - name: cdk diff
         uses: mldangelo/aws-cdk-github-actions@main
         with:
@@ -56,9 +55,9 @@ jobs:
 
 ### Using Assume-Role
 
-For those utilizing assume-role, we recommend [awscredswrap](https://github.com/marketplace/actions/aws-assume-role-github-actions).
+For those employing assume-role, [awscredswrap](https://github.com/marketplace/actions/aws-assume-role-github-actions) is recommended.
 
-See: [aws-assume-role-github-actions documentation](https://github.com/marketplace/actions/aws-assume-role-github-actions#use-as-github-actions)
+Refer to the [aws-assume-role-github-actions documentation](https://github.com/marketplace/actions/aws-assume-role-github-actions#use-as-github-actions) for more details.
 
 ```yaml
 on: [push]
@@ -86,25 +85,25 @@ jobs:
 
 ## Inputs
 
-- `cdk_subcommand` **Required** AWS CDK subcommand to execute ('deploy', 'diff', etc.)
-- `actions_comment` Decide if you want to comment on pull requests. Default: true
-- `cdk_stack` AWS CDK stack name to execute. Default: '*'
-- `cdk_version` Version of AWS CDK to install. Default: 'latest'
-- `debug_log` Enable debug logging? Default: false
-- `node_version` Version of Node.js to use. Default: '18'
-- `working_dir` AWS CDK working directory. Default: '.'
+- `cdk_subcommand` **Required** The AWS CDK subcommand to execute (e.g., 'deploy', 'diff').
+- `actions_comment` Decide if comments should be posted on pull requests. Default: 'true'.
+- `cdk_stack` The AWS CDK stack name for execution. Default: '*'.
+- `cdk_version` The version of AWS CDK to install. Default: 'latest'.
+- `debug_log` Enable detailed logging? Default: 'false'.
+- `node_version` Specify the Node.js version. Default: '18'.
+- `working_dir` The working directory for AWS CDK. Default: '.'.
 
 ## Outputs
 
-- `status_code` The status code returned by the CDK command.
+- `status_code` The status code returned by the executed CDK command.
 
-## ENV
+## Environment Variables
 
 - `AWS_ACCESS_KEY_ID` **Required**
 - `AWS_SECRET_ACCESS_KEY` **Required**
-- `GITHUB_TOKEN` Necessary when `actions_comment=true`
+- `GITHUB_TOKEN` Required when `actions_comment=true`
 
-For security, we recommend sourcing `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` from your repository's secrets. GitHub automatically provides a token as a secret named `GITHUB_TOKEN`.
+For security reasons, we recommend sourcing the `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` values from your repository's secrets. GitHub automatically provides a `GITHUB_TOKEN` as a secret.
 
 ## License
 
@@ -112,5 +111,5 @@ For security, we recommend sourcing `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_K
 
 ## Authors
 
-- Original work by [youyo](https://github.com/youyo)
-- Modifications by [Michael D'Angelo](https://github.com/mldangelo)
+- Originally developed by [youyo](https://github.com/youyo)
+- Updated by [Michael D'Angelo](https://github.com/mldangelo)
